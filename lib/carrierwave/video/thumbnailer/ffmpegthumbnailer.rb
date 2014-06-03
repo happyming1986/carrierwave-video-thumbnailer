@@ -53,7 +53,13 @@ module CarrierWave
               end
               exit_code = wait_thr.value
             end
-
+            if options.instance_variable_get :@rotate
+              content=Magick::Image.read(output_path).first
+              content=content.rotate!(90)
+              content=content.to_blob
+              FileUtils.rm output_path
+              File.open(output_path, 'wb') { |f| f.write(content) }
+            end
             handle_exit_code(exit_code, outputs, logger)
         end
 

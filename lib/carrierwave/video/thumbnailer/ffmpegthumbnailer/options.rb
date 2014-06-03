@@ -53,6 +53,7 @@ module CarrierWave
         attr_reader :format, :options, :logger, :callbacks, :custom
 
         def initialize options
+          @rotate = options.delete(:rotate)
           @callbacks  = options.delete(:callbacks) || {}
           @custom     = options.delete  :custom
           @format     = options.delete  :format
